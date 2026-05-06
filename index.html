@@ -286,3 +286,829 @@
         }
         
         .btn-submit {
+            background-color: #8b7355;
+            color: white;
+            flex: 1;
+            max-width: 300px;
+        }
+        
+        .btn-submit:hover {
+            background-color: #7a6349;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
+        }
+        
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+        
+        #successPage {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #6b5b4e;
+            margin-bottom: 15px;
+        }
+        
+        .success-text {
+            color: #8b7355;
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+        
+        .success-contact {
+            background-color: #faf7f2;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: 0 auto;
+            border-left: 4px solid #d4a574;
+        }
+        
+        .contact-item {
+            margin: 12px 0;
+            font-size: 15px;
+            color: #3e3530;
+        }
+        
+        .contact-item strong {
+            color: #6b5b4e;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 25px 20px;
+            }
+            
+            .respondent-fields {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn-submit {
+                max-width: none;
+            }
+        }
+        
+        .error-message {
+            background-color: #fadbd8;
+            color: #c0392b;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐎 Morado Ranch</h1>
+            <p>Formulario de Identidad de Marca</p>
+            <p>Sector: Experiencias - Cabalgatas en Patagonia</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="formContainer">
+                <div class="intro-text">
+                    <strong>¡Hola, equipo de Morado Ranch!</strong> Este formulario nos ayudará a capturar la esencia de tu marca y crear una identidad que consiga contar de corazón lo que ofrecen y refleje el diferencial de cómo lo hacen en Morado Ranch. Pueden responder escribiendo o grabando su voz. Tómense el tiempo que necesiten. 🧘‍♀️ Estoy a disposición para acompañarlos en el proceso del formulario o por cualquier consulta que surja. ¡Gracias por compartir!
+                </div>
+
+                <div class="respondent-section">
+                    <h2>👤 Información del Respondedor</h2>
+                    <div id="errorMessage"></div>
+                    <div class="respondent-fields">
+                        <input type="text" id="respondentName" placeholder="Tu nombre" required>
+                        <input type="email" id="respondentEmail" placeholder="tu.email@example.com" required>
+                        <select id="respondentRole" required>
+                            <option value="">Selecciona tu rol</option>
+                            <option value="Fundador/Dueño">Fundador/Dueño</option>
+                            <option value="Co-fundador">Co-fundador</option>
+                            <option value="Guía de Cabalgatas">Guía de Cabalgatas</option>
+                            <option value="Community Manager">Community Manager</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Familia/Operaciones">Familia/Operaciones</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <form id="brandForm">
+                    <!-- SECCIÓN 1: MISIÓN -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🎯 Misión</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content active">
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál es el propósito fundamental de Morado Ranch?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q1')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q1')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q1" name="q1" placeholder="¿Qué es lo que realmente hacen? ¿Cuál es la razón por la que existen?"></textarea>
+                                <div class="audio-status" id="q1-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Qué problemas o necesidades resuelven para sus clientes?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q2')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q2')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q2" name="q2" placeholder="¿Cuáles son los principales cambios o emociones que experimentan después?"></textarea>
+                                <div class="audio-status" id="q2-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 2: PÚBLICO OBJETIVO -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🫂 Público Objetivo</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Quién es tu cliente ideal? Describe edad, profesión, origen geográfico</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q3')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q3')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q3" name="q3" placeholder="Ej: Europeos y estadounidenses, profesionales de 35-60 años, que buscan transformación personal..."></textarea>
+                                <div class="audio-status" id="q3-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál es el estilo de vida o valores compartidos de tu cliente ideal?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q4')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q4')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q4" name="q4" placeholder="¿Qué los caracteriza? ¿Qué buscan fuera del sistema?"></textarea>
+                                <div class="audio-status" id="q4-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Tienes ejemplos específicos de clientes que mejor representan tu audiencia ideal?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q5')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q5')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q5" name="q5" placeholder="Cuéntame historias reales de clientes que volvieron, que trajeron amigos..."></textarea>
+                                <div class="audio-status" id="q5-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Por qué algunos prospects NO se convierten en clientes?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q6')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q6')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q6" name="q6" placeholder="Ej: Gente que no quiere estar 5 días sin bañarse, que tiene poco tiempo..."></textarea>
+                                <div class="audio-status" id="q6-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿En qué contexto o situación de vida están cuando te descubren?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q7')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q7')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q7" name="q7" placeholder="¿Buscan algo específico? ¿Vienen de recomendaciones?"></textarea>
+                                <div class="audio-status" id="q7-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 3: PROPUESTA DE VALOR -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🤩 Propuesta de Valor</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál es tu propuesta única de valor? ¿Por qué elegir Morado Ranch?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q8')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q8')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q8" name="q8" placeholder="¿Qué no encontran en otros lugares? ¿Qué solo ustedes ofrecen?"></textarea>
+                                <div class="audio-status" id="q8-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Qué beneficios NO pueden encontrar en la competencia?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q9')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q9')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q9" name="q9" placeholder="Ej: La calidez familiar, el contacto con los gauchos, la Patagonia auténtica..."></textarea>
+                                <div class="audio-status" id="q9-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Qué experimentan tus clientes que más los asombra o emociona?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q10')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q10')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q10" name="q10" placeholder="¿Cuál es el momento más memorable de la experiencia?"></textarea>
+                                <div class="audio-status" id="q10-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Qué objeciones aparecen antes de que el cliente diga "sí"?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q11')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q11')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q11" name="q11" placeholder="¿Cuáles son sus preocupaciones? ¿Qué dudas tienen?"></textarea>
+                                <div class="audio-status" id="q11-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">🔴 IMPORTANTE: Menciona MÍNIMO 3 referencias de marcas/experiencias similares que ustedes admiran</label>
+                                <div class="question-hint">Analiza cómo comunican, qué hacen bien, qué podrían hacer diferente</div>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q12')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q12')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q12" name="q12" placeholder="Ej: Torres del Paine en Chile, experiencias de yoga en Bali, proyectos de turismo aventura en Neuquén..."></textarea>
+                                <div class="audio-status" id="q12-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 4: PERSONALIDAD DE MARCA -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🌟 Personalidad de Marca</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Cómo describirías el tono y voz de Morado Ranch?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q13')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q13')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q13" name="q13" placeholder="¿Formal? ¿Informal? ¿Cálido? ¿Aventurero? ¿Auténtico?"></textarea>
+                                <div class="audio-status" id="q13-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Qué emociones querés que sienta el cliente con tu marca?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q14')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q14')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q14" name="q14" placeholder="Transformación, seguridad, aventura, pertenencia, autenticidad..."></textarea>
+                                <div class="audio-status" id="q14-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 5: VALORES -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>⭐ Valores de Marca</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Cuáles son los 3-5 valores principales de Morado Ranch?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q15')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q15')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q15" name="q15" placeholder="Autenticidad, familia, transformación, respeto por la naturaleza..."></textarea>
+                                <div class="audio-status" id="q15-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cómo viven estos valores en la interacción con los clientes?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q16')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q16')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q16" name="q16" placeholder="¿Cómo se reflejan en las decisiones que toman? ¿En cómo tratan a la gente?"></textarea>
+                                <div class="audio-status" id="q16-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 6: HISTORIA -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>📜 Historia de la Marca</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Cómo nació Morado Ranch? Contá la historia desde el inicio</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q17')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q17')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q17" name="q17" placeholder="¿Por qué empezó? ¿Con quién? ¿Cuál fue el primer cliente?"></textarea>
+                                <div class="audio-status" id="q17-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál ha sido la evolución de Morado Ranch hasta hoy?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q18')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q18')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q18" name="q18" placeholder="¿Cómo pasaron de agencias a venta directa? ¿Qué aprendiste en el camino?"></textarea>
+                                <div class="audio-status" id="q18-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 7: IDENTIDAD VISUAL -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>😎 Identidad Visual</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Qué colores, tipografía y elementos visuales representan a Morado Ranch?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q19')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q19')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q19" name="q19" placeholder="¿Qué paleta de colores? ¿Elementos de Patagonia? ¿Símbolos que usen?"></textarea>
+                                <div class="audio-status" id="q19-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 8: COMUNICACIÓN -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🗣️ Comunicación</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Cuáles son los canales de comunicación más efectivos con tus clientes?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q20')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q20')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q20" name="q20" placeholder="Instagram, WhatsApp, conversaciones directas, recomendaciones..."></textarea>
+                                <div class="audio-status" id="q20-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Qué mensajes generan más inquietud e interés en nuevos clientes?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q21')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q21')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q21" name="q21" placeholder="¿Historias de transformación? ¿Fotos del paisaje? ¿Testimonios?"></textarea>
+                                <div class="audio-status" id="q21-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Qué información sobre Morado Ranch NO está clara para los prospects?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q22')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q22')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q22" name="q22" placeholder="¿Qué preguntan seguido? ¿Qué necesita ser más evidente?"></textarea>
+                                <div class="audio-status" id="q22-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Qué explicas en conversaciones privadas que debería estar públicamente?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q23')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q23')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q23" name="q23" placeholder="Las 3 opciones de experiencia, la opción de invierno, el contacto con gauchos..."></textarea>
+                                <div class="audio-status" id="q23-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 9: CANALES Y VENTAS -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>📲 Canales y Ventas</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿De dónde vienen hoy la mayoría de tus inquiries y clientes?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q24')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q24')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q24" name="q24" placeholder="Recomendaciones, Instagram, contactos en Neuquén..."></textarea>
+                                <div class="audio-status" id="q24-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál es el canal que convierte mejor? ¿Dónde se cierran más ventas?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q25')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q25')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q25" name="q25" placeholder="Conversaciones directas, WhatsApp, recomendación de boca en boca..."></textarea>
+                                <div class="audio-status" id="q25-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cómo manejas el proceso desde que alguien te pregunta hasta que confirma la fecha?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q26')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q26')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q26" name="q26" placeholder="Pasos del proceso de venta, quién se encarga, timing..."></textarea>
+                                <div class="audio-status" id="q26-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 10: CONTENIDO -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>📸 Contenido</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Qué tipo de contenido es más fácil de producir para ustedes?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q27')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q27')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q27" name="q27" placeholder="Fotos, videos, historias, reels, testimonios..."></textarea>
+                                <div class="audio-status" id="q27-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Tienen material de proyectos/experiencias pasadas? ¿Está organizado?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q28')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q28')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q28" name="q28" placeholder="¿Tienen fotos? ¿Videos? ¿Testimonios guardados?"></textarea>
+                                <div class="audio-status" id="q28-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Qué parte de la experiencia sería interesante mostrar/documentar en redes?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q29')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q29')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q29" name="q29" placeholder="El contacto con los gauchos, el fuego, los momentos de transformación, la comida, los amaneceres..."></textarea>
+                                <div class="audio-status" id="q29-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 11: INTERACCIÓN CON CLIENTE -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>💏 Interacción con Clientes</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Qué experiencia querés que viva el cliente desde el primer contacto?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q30')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q30')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q30" name="q30" placeholder="Calidez, autenticidad, bienvenida, seguridad..."></textarea>
+                                <div class="audio-status" id="q30-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cómo se resuelven las preocupaciones o dudas antes de viajar?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q31')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q31')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q31" name="q31" placeholder="¿Conversaciones? ¿Guías informativas? ¿Evidencia de que otros lo hicieron?"></textarea>
+                                <div class="audio-status" id="q31-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál es el proceso completo desde que alguien llama hasta que se va a casa?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q32')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q32')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q32" name="q32" placeholder="Pasos, touchpoints, qué los hace sentir especiales..."></textarea>
+                                <div class="audio-status" id="q32-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cuánto tiempo típicamente pasa entre el primer contacto y confirmar la fecha?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q33')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q33')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q33" name="q33" placeholder="¿Días? ¿Semanas? ¿Depende del tipo de cliente?"></textarea>
+                                <div class="audio-status" id="q33-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿En qué punto del proceso suelen "caerse" los clientes que se van?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q34')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q34')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q34" name="q34" placeholder="¿Antes de pagar? ¿Por precio? ¿Por miedo a la experiencia?"></textarea>
+                                <div class="audio-status" id="q34-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 12: PRODUCTOS Y DECISIÓN DE COMPRA -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>💰 Productos y Decisión de Compra</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Cuáles son tus 3 principales ofertas/paquetes?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q35')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q35')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q35" name="q35" placeholder="5 noches wild, 2 noches semi, día de invierno desde la casa..."></textarea>
+                                <div class="audio-status" id="q35-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál es el más popular o genera más demanda?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q36')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q36')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q36" name="q36" placeholder="¿Cuál generan más pasión y recomendaciones?"></textarea>
+                                <div class="audio-status" id="q36-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Tienes diferentes opciones de precio? ¿Cómo se presentan?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q37')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q37')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q37" name="q37" placeholder="¿Paquete completo vs por partes? ¿Según temporada?"></textarea>
+                                <div class="audio-status" id="q37-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál es el factor más importante para que alguien diga "sí"?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q38')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q38')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q38" name="q38" placeholder="¿El precio? ¿La recomendación? ¿La emoción de la experiencia?"></textarea>
+                                <div class="audio-status" id="q38-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 13: VISIÓN FUTURA -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🔜 Visión a Largo Plazo</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Dónde ves a Morado Ranch en 2-3 años?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q39')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q39')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q39" name="q39" placeholder="¿Más clientes? ¿Nuevas experiencias? ¿Alcance internacional?"></textarea>
+                                <div class="audio-status" id="q39-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál sería la venta o experiencia ideal que te gustaría cerrar?</label>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q40')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q40')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q40" name="q40" placeholder="¿Experiencias corporativas? ¿Retiros transformacionales? ¿Viajes familiares?"></textarea>
+                                <div class="audio-status" id="q40-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PREGUNTAS PERSONALIZADAS BASADAS EN INSIGHTS -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🎯 Preguntas Personalizadas (Morado Ranch)</span>
+                            <span class="toggle">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="question-group">
+                                <label class="question-label">¿Cuál es el momento más transformador que los clientes experimentan durante la cabalgata?</label>
+                                <div class="question-hint">Basado en tu énfasis en transformación personal y momento de conexión emocional</div>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q41')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q41')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q41" name="q41" placeholder="¿El contacto con los gauchos? ¿El fuego? ¿La desconexión del teléfono? ¿El amanecer?"></textarea>
+                                <div class="audio-status" id="q41-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cómo describirías la diferencia cultural entre una cabalgata europea estándar y la experiencia de Morado Ranch?</label>
+                                <div class="question-hint">Tu diferenciador: calidez, contacto genuino, familia, gauchos, Patagonia auténtica</div>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q42')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q42')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q42" name="q42" placeholder="¿Qué no encontran en Noruega? ¿Qué solo la Patagonia y ustedes ofrecen?"></textarea>
+                                <div class="audio-status" id="q42-status"></div>
+                            </div>
+                            <div class="question-group">
+                                <label class="question-label">¿Cómo planean posicionar las experiencias corporativas o de invierno sin diluir la identidad actual?</label>
+                                <div class="question-hint">Nuevos productos que necesitan encajar en la marca sin confundir a los clientes existentes</div>
+                                <div class="audio-controls">
+                                    <button type="button" class="audio-btn" onclick="startRecording('q43')">Grabar</button>
+                                    <button type="button" class="audio-btn" onclick="stopRecording('q43')">⏹ Detener</button>
+                                </div>
+                                <textarea id="q43" name="q43" placeholder="¿Mantienen la esencia familiar? ¿La autenticidad? ¿Cómo comunican que son complementarias?"></textarea>
+                                <div class="audio-status" id="q43-status"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn-reset" onclick="resetForm()">🔄 Limpiar</button>
+                        <button type="submit" class="btn-submit" onclick="submitForm(event)">✓ Guardar y Enviar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="successPage">
+                <div class="success-icon">🎉</div>
+                <div class="success-title">¡Gracias por compartir!</div>
+                <div class="success-text">
+                    Recibimos toda la información de <strong>Morado Ranch</strong>
+                    <br><br>
+                    Próximos pasos: Estamos en contacto para la primera entrega del brief de marca con la posibilidad de hacer ajustes o recomendaciones.
+                </div>
+                <div class="success-contact">
+                    <div class="contact-item">
+                        📧 <strong>Email:</strong> micaecgarcia@gmail.com
+                    </div>
+                    <div class="contact-item">
+                        💬 <strong>WhatsApp:</strong> +54 9 11 3030 1901
+                    </div>
+                    <div class="contact-item" style="margin-top: 20px; font-size: 14px; color: #a99b8f;">
+                        Puedes cerrar esta ventana cuando quieras 🚀
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let recognitionActive = false;
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition;
+        
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.language = 'es-AR';
+            recognition.continuous = true;
+        }
+        
+        function toggleAccordion(header) {
+            header.classList.toggle('active');
+            header.nextElementSibling.classList.toggle('active');
+            updateProgress();
+        }
+        
+        function startRecording(fieldId) {
+            if (!recognition) {
+                alert('Tu navegador no soporta grabación de voz. Por favor, escribe en su lugar.');
+                return;
+            }
+            
+            const field = document.getElementById(fieldId);
+            const statusEl = document.getElementById(fieldId + '-status');
+            
+            recognition.onstart = function() {
+                recognitionActive = true;
+                statusEl.textContent = '🧘‍♀️ Grabando...';
+            };
+            
+            recognition.onresult = function(event) {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript + ' ';
+                }
+                field.value = transcript;
+                updateProgress();
+            };
+            
+            recognition.onerror = function(event) {
+                statusEl.textContent = '❌ Error: ' + event.error;
+            };
+            
+            recognition.onend = function() {
+                recognitionActive = false;
+                statusEl.textContent = '✅ Grabación completada';
+            };
+            
+            recognition.start();
+        }
+        
+        function stopRecording(fieldId) {
+            if (recognition && recognitionActive) {
+                recognition.stop();
+            }
+        }
+        
+        function resetForm() {
+            if (confirm('¿Estás seguro de que quieres limpiar todo el formulario?')) {
+                document.getElementById('brandForm').reset();
+                document.getElementById('respondentName').value = '';
+                document.getElementById('respondentEmail').value = '';
+                document.getElementById('respondentRole').value = '';
+                updateProgress();
+            }
+        }
+        
+        function updateProgress() {
+            const inputs = document.querySelectorAll('textarea, input[required]');
+            let filled = 0;
+            inputs.forEach(input => {
+                if (input.value.trim()) filled++;
+            });
+            const percentage = Math.round((filled / inputs.length) * 100);
+            document.getElementById('progressFill').style.width = percentage + '%';
+        }
+        
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('respondentName').value.trim();
+            const email = document.getElementById('respondentEmail').value.trim();
+            const role = document.getElementById('respondentRole').value.trim();
+            
+            if (!name || !email || !role) {
+                const errorDiv = document.getElementById('errorMessage');
+                errorDiv.innerHTML = '<div class="error-message">⚠️ Por favor completa Nombre, Email y Rol antes de enviar.</div>';
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('respondent_name', name);
+            formData.append('respondent_email', email);
+            formData.append('respondent_role', role);
+            formData.append('timestamp', new Date().toLocaleString('es-AR'));
+            
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach((ta, index) => {
+                formData.append(ta.id, ta.value);
+            });
+            
+            fetch('https://formspree.io/f/mykojrzz', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('formContainer').style.display = 'none';
+                    document.getElementById('successPage').style.display = 'block';
+                } else {
+                    alert('Hubo un error al enviar el formulario. Por favor intenta nuevamente.');
+                }
+            })
+            .catch(error => {
+                alert('Error de conexión: ' + error);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            const firstHeader = document.querySelector('.accordion-header');
+            if (firstHeader) {
+                firstHeader.click();
+            }
+        });
+    </script>
+</body>
+</html>
